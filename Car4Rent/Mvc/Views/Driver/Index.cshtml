@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Mvc.Models.mvcDriverModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a href="@Url.Action("AddOrEdit", "Driver")" class="btn btn-default"><i class="fa fa-plus"></i>Create new</a>
+</p>
+<table class="table table-striped">
+    <thead class="table-heading">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Driver_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Driver_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IDCard)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Driver_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Driver_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDCard)
+            </td>
+            <td>
+                <a href="@Url.Action("AddOrEdit","Driver",new { id = item.Driver_id })" class="btn btn-default"><i class="fa fa-pencil"> </i>Edit</a>
+
+                <a onclick="Delete(@item.Driver_id)" class="btn btn-default"><i class="fa fa-trash"> </i>Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+@section scripts{
+    <script>
+        $(function () {
+            var SuccessMessage = '@TempData["SuccessMessage"]'
+            if (SuccessMessage != '')
+                alertify.success();
+
+        });
+        function Delete(id) {
+            alertify.confirm('Car4Rent Managemnent', 'Are you sure to delete this record?', function () {
+                window/location.href = '@Url.Action("Delete","Driver")/' + id;
+            }, null);
+        }
+
+    </script>
+}

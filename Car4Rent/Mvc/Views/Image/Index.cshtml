@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Mvc.Models.mvcImageModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-striped">
+    <thead class="table-heading">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Image_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image_link)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Car_id)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image_link)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car_id)
+            </td>
+            <td>
+                <a href="@Url.Action("AddOrEdit","Image",new { id = item.Image_id })" class="btn btn-default"><i class="fa fa-pencil"> </i>Edit</a>
+
+                <a onclick="Delete(@item.Image_id)" class="btn btn-default"><i class="fa fa-trash"> </i>Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+@section scripts{
+    <script>
+        $(function () {
+            var SuccessMessage = '@TempData["SuccessMessage"]'
+            if (SuccessMessage != '')
+                alertify.success();
+
+        });
+        function Delete(id) {
+            alertify.confirm('Car4Rent Managemnent', 'Are you sure to delete this record?', function () {
+                window/location.href = '@Url.Action("Delete","Image")/' + id;
+            }, null);
+        }
+
+    </script>
+}

@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Car4RentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="account">
+    <Key>
+      <PropertyRef Name="Account_id" />
+    </Key>
+    <Property Name="Account_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Account_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Role_id" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="car">
+    <Key>
+      <PropertyRef Name="Car_id" />
+    </Key>
+    <Property Name="Car_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Category_id" Type="Int32" Nullable="false" />
+    <Property Name="Car_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Car_color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Car_plate" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PricePerHour" Type="Double" Nullable="false" />
+    <Property Name="PricePerDay" Type="Double" Nullable="false" />
+    <NavigationProperty Name="category" Relationship="Self.FK__cars__Category_i__35BCFE0A" FromRole="cars" ToRole="categories" />
+    <NavigationProperty Name="orders" Relationship="Self.FK__orders__Car_id__3A81B327" FromRole="cars" ToRole="orders" />
+    <NavigationProperty Name="images" Relationship="Self.FK_images_cars" FromRole="cars" ToRole="images" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="Category_id" />
+    </Key>
+    <Property Name="Category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Category_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="cars" Relationship="Self.FK__cars__Category_i__35BCFE0A" FromRole="categories" ToRole="cars" />
+  </EntityType>
+  <EntityType Name="customer">
+    <Key>
+      <PropertyRef Name="Customer_id" />
+    </Key>
+    <Property Name="Customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Customer_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Addresss" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IDCard" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="orders" Relationship="Self.FK__orders__Customer__3B75D760" FromRole="customers" ToRole="orders" />
+  </EntityType>
+  <EntityType Name="driver">
+    <Key>
+      <PropertyRef Name="Driver_id" />
+    </Key>
+    <Property Name="Driver_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Driver_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="IDCard" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="orderdetails" Relationship="Self.FK__orderdeta__Drive__37A5467C" FromRole="drivers" ToRole="orderdetails" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="Employee_id" />
+    </Key>
+    <Property Name="Employee_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Employee_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IDCard" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="orderdetails" Relationship="Self.FK__orderdeta__Emplo__38996AB5" FromRole="employees" ToRole="orderdetails" />
+  </EntityType>
+  <EntityType Name="image">
+    <Key>
+      <PropertyRef Name="Image_id" />
+    </Key>
+    <Property Name="Image_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Image_link" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Car_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="car" Relationship="Self.FK_images_cars" FromRole="images" ToRole="cars" />
+  </EntityType>
+  <EntityType Name="orderdetail">
+    <Key>
+      <PropertyRef Name="Orderdetail_id" />
+    </Key>
+    <Property Name="Orderdetail_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Order_id" Type="Int32" Nullable="false" />
+    <Property Name="Driver_id" Type="Int32" Nullable="false" />
+    <Property Name="Employee_id" Type="Int32" Nullable="false" />
+    <Property Name="ProcessDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="driver" Relationship="Self.FK__orderdeta__Drive__37A5467C" FromRole="orderdetails" ToRole="drivers" />
+    <NavigationProperty Name="employee" Relationship="Self.FK__orderdeta__Emplo__38996AB5" FromRole="orderdetails" ToRole="employees" />
+    <NavigationProperty Name="order" Relationship="Self.FK__orderdeta__Order__398D8EEE" FromRole="orderdetails" ToRole="orders" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="Order_id" />
+    </Key>
+    <Property Name="Order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Price_total" Type="Double" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Customer_id" Type="Int32" Nullable="false" />
+    <Property Name="Car_id" Type="Int32" Nullable="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Note" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="car" Relationship="Self.FK__orders__Car_id__3A81B327" FromRole="orders" ToRole="cars" />
+    <NavigationProperty Name="customer" Relationship="Self.FK__orders__Customer__3B75D760" FromRole="orders" ToRole="customers" />
+    <NavigationProperty Name="orderdetails" Relationship="Self.FK__orderdeta__Order__398D8EEE" FromRole="orders" ToRole="orderdetails" />
+  </EntityType>
+  <EntityType Name="role">
+    <Key>
+      <PropertyRef Name="Role_id" />
+    </Key>
+    <Property Name="Role_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Role_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__cars__Category_i__35BCFE0A">
+    <End Role="categories" Type="Self.category" Multiplicity="1" />
+    <End Role="cars" Type="Self.car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categories">
+        <PropertyRef Name="Category_id" />
+      </Principal>
+      <Dependent Role="cars">
+        <PropertyRef Name="Category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders__Car_id__3A81B327">
+    <End Role="cars" Type="Self.car" Multiplicity="1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cars">
+        <PropertyRef Name="Car_id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="Car_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_images_cars">
+    <End Role="cars" Type="Self.car" Multiplicity="1" />
+    <End Role="images" Type="Self.image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cars">
+        <PropertyRef Name="Car_id" />
+      </Principal>
+      <Dependent Role="images">
+        <PropertyRef Name="Car_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders__Customer__3B75D760">
+    <End Role="customers" Type="Self.customer" Multiplicity="1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customers">
+        <PropertyRef Name="Customer_id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="Customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orderdeta__Drive__37A5467C">
+    <End Role="drivers" Type="Self.driver" Multiplicity="1" />
+    <End Role="orderdetails" Type="Self.orderdetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="drivers">
+        <PropertyRef Name="Driver_id" />
+      </Principal>
+      <Dependent Role="orderdetails">
+        <PropertyRef Name="Driver_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orderdeta__Emplo__38996AB5">
+    <End Role="employees" Type="Self.employee" Multiplicity="1" />
+    <End Role="orderdetails" Type="Self.orderdetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employees">
+        <PropertyRef Name="Employee_id" />
+      </Principal>
+      <Dependent Role="orderdetails">
+        <PropertyRef Name="Employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orderdeta__Order__398D8EEE">
+    <End Role="orders" Type="Self.order" Multiplicity="1" />
+    <End Role="orderdetails" Type="Self.orderdetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="Order_id" />
+      </Principal>
+      <Dependent Role="orderdetails">
+        <PropertyRef Name="Order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Car4RentEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="accounts" EntityType="Self.account" />
+    <EntitySet Name="cars" EntityType="Self.car" />
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="customers" EntityType="Self.customer" />
+    <EntitySet Name="drivers" EntityType="Self.driver" />
+    <EntitySet Name="employees" EntityType="Self.employee" />
+    <EntitySet Name="images" EntityType="Self.image" />
+    <EntitySet Name="orderdetails" EntityType="Self.orderdetail" />
+    <EntitySet Name="orders" EntityType="Self.order" />
+    <EntitySet Name="roles" EntityType="Self.role" />
+    <AssociationSet Name="FK__cars__Category_i__35BCFE0A" Association="Self.FK__cars__Category_i__35BCFE0A">
+      <End Role="categories" EntitySet="categories" />
+      <End Role="cars" EntitySet="cars" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders__Car_id__3A81B327" Association="Self.FK__orders__Car_id__3A81B327">
+      <End Role="cars" EntitySet="cars" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_images_cars" Association="Self.FK_images_cars">
+      <End Role="cars" EntitySet="cars" />
+      <End Role="images" EntitySet="images" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders__Customer__3B75D760" Association="Self.FK__orders__Customer__3B75D760">
+      <End Role="customers" EntitySet="customers" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orderdeta__Drive__37A5467C" Association="Self.FK__orderdeta__Drive__37A5467C">
+      <End Role="drivers" EntitySet="drivers" />
+      <End Role="orderdetails" EntitySet="orderdetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orderdeta__Emplo__38996AB5" Association="Self.FK__orderdeta__Emplo__38996AB5">
+      <End Role="employees" EntitySet="employees" />
+      <End Role="orderdetails" EntitySet="orderdetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orderdeta__Order__398D8EEE" Association="Self.FK__orderdeta__Order__398D8EEE">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="orderdetails" EntitySet="orderdetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

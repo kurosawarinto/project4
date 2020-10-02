@@ -1,0 +1,34 @@
+﻿@model Mvc.Models.mvcImageModel;
+@{
+    ViewBag.Title = "AddOrEdit";
+}
+
+<div class="form-body">
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(model => model.Image_id)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image_link)
+            @Html.EditorFor(model => model.Image_link)
+            @Html.ValidationMessageFor(model => model.Image_link)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Car_id)
+            @Html.EditorFor(model => model.Car_id)
+            @Html.ValidationMessageFor(model => model.Car_id)
+        </div>
+       
+
+        <div class="form-group">
+            <input type="submit" value="Submit" class="btn button" />
+            <input type="reset" value="Reset" class="btn button" />
+
+        </div>
+    }
+
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+
+}
+
